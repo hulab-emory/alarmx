@@ -1,0 +1,76 @@
+@keyframes jelly {
+  0%, 100% {
+    transform: scale(1, 1);
+ }
+  25% {
+    transform: scale(0.9, 1.1);
+ }
+  50% {
+    transform: scale(1.1, 0.9);
+ }
+  75% {
+    transform: scale(0.95, 1.05);
+ }
+}
+.AvatarEditor {
+  /* background: rgb(199, 199, 199); */
+  /* background: #556286; */
+  /* background: #109be5; */
+  background: #43a0d2;
+  display: flex;
+}
+
+.AvatarEditor .iconfont {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.AvatarEditor .iconfont:hover {
+  animation: jelly 0.5s;
+}
+.AvatarEditor .iconfont:hover:not(.banTip):after {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.AvatarEditor .iconfont:after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 120%;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  color: #fff;
+  background: #303030;
+  padding: 0.15rem 0.75rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.2s ease-out;
+}
+.AvatarEditor .codeBlock {
+  background: #222;
+  color: #eeebff;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.2s ease-out;
+}
+.AvatarEditor .codeBlock.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.items-center {
+  align-items: center;
+}
+.flex {
+  display: flex;
+}

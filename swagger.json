@@ -1,0 +1,4916 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CHoRUS Equitable AI API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "description": "Local development server"
+    },
+    {
+      "url": "https://nursingdatascience.emory.edu/api",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "OMOP",
+      "description": "Contains clinical data related tables."
+    },
+    {
+      "name": "Vocabulary",
+      "description": "Contains all vocabulary related tables."
+    },
+    {
+      "name": "Auth",
+      "description": "Auth management"
+    },
+    {
+      "name": "User",
+      "description": "User management"
+    },
+    {
+      "name": "Feature",
+      "description": "Feature management"
+    },
+    {
+      "name": "Bucket",
+      "description": "Bucket management"
+    },
+    {
+      "name": "cadaProject",
+      "description": "CADA project management"
+    },
+    {
+      "name": "cadaEvent",
+      "description": "CADA Eevent management"
+    },
+    {
+      "name": "cadaFile",
+      "description": "CADA file management"
+    },
+    {
+      "name": "iveSearch",
+      "description": "IVe search management"
+    },
+    {
+      "name": "iveCohort",
+      "description": "IVe cohort management"
+    },
+    {
+      "name": "iveComponent",
+      "description": "IVe component management"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "loginUser",
+        "summary": "Login user",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "test@gmail.com",
+                  "password": "1234"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/github-login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "loginWithGithub",
+        "summary": "Login user with github",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "code": "CodeFromGithub"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/google-login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "loginWithGoogle",
+        "summary": "Login user with google",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "test@gmail.com",
+                  "password": "1234"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "signupUser",
+        "summary": "Signup user",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "test@gmail.com",
+                  "password": "1234"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "getAllUsers",
+        "summary": "Get all user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "createUser",
+        "summary": "Create new user",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#components/requestBodies/User"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/{uid}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "getUserById",
+        "summary": "Get user detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "updateUser",
+        "summary": "Update user detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/User"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/resetPassword": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "reserPasswordByUsername",
+        "summary": "Reset user password",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "test@gmail.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/search": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "searchUsers",
+        "summary": "Search users",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fid": {
+                    "type": "number"
+                  },
+                  "attributes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "statusFilter": {
+                    "type": "string"
+                  },
+                  "exUids": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "searchString": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "fid": 1,
+                  "attributes": [],
+                  "statusFilter": "Active",
+                  "exUids": [],
+                  "searchString": "@emory",
+                  "limit": 10
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/feature": {
+      "get": {
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "getAllFeatures",
+        "summary": "Get all features",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new feature",
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "createFeature",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Feature",
+          "description": "Create feature object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/feature/{fid}": {
+      "get": {
+        "summary": "Get feature by feature id",
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "getFeatureById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update feature detail by feature id",
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "updateFeatureById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Feature",
+          "description": "Create feature object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete feature detail by feature id",
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "deleteFeatureById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/feature/{fid}/users": {
+      "get": {
+        "summary": "Get specific feature users",
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "getAllFeatureUsers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "createFeatureUser",
+        "summary": "Create feature user detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/cadaProjectUser"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/feature/{fid}/users/{uid}": {
+      "get": {
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "getFeatureUserByUserId",
+        "summary": "Get feature user detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "updateFeatureUserByUserId",
+        "summary": "Update feature user detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "default": "user"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Feature"
+        ],
+        "operationId": "deleteFeatureUserById",
+        "summary": "Delete feature user detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fid",
+            "description": "feature id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/bucket": {
+      "get": {
+        "tags": [
+          "Bucket"
+        ],
+        "operationId": "getAllBuckets",
+        "summary": "Retrieve root files/folders from S3 ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/bucket/{path}": {
+      "get": {
+        "tags": [
+          "Bucket"
+        ],
+        "operationId": "getBucketByPath",
+        "summary": "Retrieve files/folders by specified S3 path",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The path to retrieve files from S3 buckets"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/project": {
+      "get": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "findAllProjects",
+        "summary": "Get all projects",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "createProject",
+        "summary": "Create project",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/cadaProject"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/project/{pid}": {
+      "get": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "getProjectById",
+        "summary": "Get project by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "updateProjectById",
+        "summary": "Update project detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/cadaProject"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "deleteProject",
+        "summary": "Delete a specific  project ",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/project/users/{uid}": {
+      "get": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "getProjectUserRolesByUserId",
+        "summary": "Get all projectUser by user id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/project/{pid}/users": {
+      "get": {
+        "description": "",
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "getAllProjectUsers",
+        "summary": "Get all projectUsers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/project/{pid}/users/{uid}": {
+      "get": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "getProjectUser",
+        "summary": "Get all project roles for a specific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "createProjectUser",
+        "summary": "Create new projectUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "description": "project user role",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "annotator",
+                "adjudicator"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "updateProjectUser",
+        "summary": "Update projectUser by project id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "description": "project user role",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "annotator",
+                "adjudicator"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cadaProject"
+        ],
+        "operationId": "deleteProjectUser",
+        "summary": "Delete a specific user's project role",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "description": "project user role",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "annotator",
+                "adjudicator"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event": {
+      "get": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "operationId": "getProjectEventsById",
+        "summary": "Get project events by id",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "query",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "completed",
+            "in": "query",
+            "description": "completed",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sinceId",
+            "in": "query",
+            "description": "since id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "sort order",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Assign events for project",
+        "operationId": "createEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Array of binfile Ids",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Delete events",
+        "description": "",
+        "operationId": "deleteEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "eid",
+            "description": "event id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/count": {
+      "get": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "operationId": "countEvents",
+        "summary": "Count events",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "query",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "completed",
+            "in": "query",
+            "description": "only annotated events count return if provided ",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/assignments": {
+      "get": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "operationId": "getUserAssignments",
+        "summary": "Get user's assigned annotation",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "completed",
+            "in": "query",
+            "description": "completed status",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sinceId",
+            "in": "query",
+            "description": "since id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "sort order",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Assign annotation for user",
+        "operationId": "createAnnotation",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Array of events Ids ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Delete assigned annotation",
+        "description": "",
+        "operationId": "deleteAnnotation",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Array of events Ids ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/assignmentsCount": {
+      "get": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "operationId": "getUserAssignmentsCount",
+        "summary": "Get user's assigned annotations count",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pid",
+            "description": "project id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/annotationValue": {
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Create annotation value",
+        "operationId": "createAnnotationValue",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/cadaAnnotationValue"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/adjudicationValue": {
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Create adjudication value",
+        "operationId": "createAdjudicationValue",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/cadaAdjudicationValue"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/annotators": {
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Find annotators by event ids",
+        "operationId": "findAnnotatorsByEventIds",
+        "parameters": [],
+        "requestBody": {
+          "description": "Array of events Ids",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/event/adjudicators": {
+      "post": {
+        "tags": [
+          "cadaEvent"
+        ],
+        "summary": "Find adjudicators by event ids",
+        "operationId": "findAdjudicatorsByEventIds",
+        "parameters": [],
+        "requestBody": {
+          "description": "Array of events Ids",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/file": {
+      "get": {
+        "tags": [
+          "cadaFile"
+        ],
+        "operationId": "getAllFiles",
+        "summary": "Get all files",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "description": "search string",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new cada files",
+        "tags": [
+          "cadaFile"
+        ],
+        "operationId": "createFiles",
+        "parameters": [],
+        "requestBody": {
+          "description": "Array of file paths ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/file/adibin": {
+      "get": {
+        "tags": [
+          "cadaFile"
+        ],
+        "operationId": "processAdibin",
+        "summary": "Process adibin file",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "description": "file name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/file/pdf": {
+      "get": {
+        "tags": [
+          "cadaFile"
+        ],
+        "operationId": "processPDF",
+        "summary": "Process PDF file",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "description": "file name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cada/file/json": {
+      "get": {
+        "tags": [
+          "cadaFile"
+        ],
+        "operationId": "processJSON",
+        "summary": "Process JSON file",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "description": "file name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/search": {
+      "post": {
+        "tags": [
+          "iveSearch"
+        ],
+        "operationId": "searchPerson",
+        "summary": "Searcyh omopDeath",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "attributes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "statusFilter": {
+                    "type": "string"
+                  },
+                  "exUids": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "searchString": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "id": 0,
+                  "attributes": [],
+                  "statusFilter": "",
+                  "exUids": [],
+                  "searchString": "",
+                  "limit": 0
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/component": {
+      "get": {
+        "tags": [
+          "iveComponent"
+        ],
+        "operationId": "findAllComponents",
+        "summary": "Get all components",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "tags": [
+          "iveComponent"
+        ],
+        "operationId": "createComponent",
+        "summary": "Create Component",
+        "parameters": [],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/iveComponent"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/component/{cid}": {
+      "get": {
+        "tags": [
+          "iveComponent"
+        ],
+        "operationId": "getComponentById",
+        "summary": "Get component by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cid",
+            "description": "component id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "iveComponent"
+        ],
+        "operationId": "updateComponentById",
+        "summary": "Update component detail by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cid",
+            "description": "component id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "iveComponent"
+        ],
+        "operationId": "deleteProject",
+        "summary": "Delete a specific  project ",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cid",
+            "description": "component id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/cohort": {
+      "get": {
+        "tags": [
+          "iveCohort"
+        ],
+        "operationId": "getAllCohort",
+        "summary": "Get all cohort",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ive/cohort/{uid}": {
+      "get": {
+        "tags": [
+          "iveCohort"
+        ],
+        "operationId": "getIveCohortsByUserId",
+        "summary": "Get cohorts by user id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uid",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/concepts": {
+      "get": {
+        "tags": [
+          "Vocabulary"
+        ],
+        "operationId": "getAllConcept",
+        "summary": "Get all concept",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/concepts/search": {
+      "get": {
+        "tags": [
+          "Vocabulary"
+        ],
+        "operationId": "searchConcept",
+        "summary": "Search concept",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/person": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllPerson",
+        "summary": "Get all person",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/person/{pid}": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getPersonById",
+        "summary": "Get person by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "description": "person id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/person/ids": {
+      "post": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getPersonByIds",
+        "summary": "Get person by ids",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pids": {
+                    "type": "array"
+                  }
+                },
+                "example": {
+                  "pids": [50075, 152730, 153722, 209792]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/person/search": {
+      "post": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getPeopleByConceptId",
+        "summary": "Get people by concept id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "gender_concept_ids": {
+                    "type": "array"
+                  },
+                  "race_concept_ids": {
+                    "type": "array"
+                  },
+                  "ethnicity_concept_ids": {
+                    "type": "array"
+                  }
+                },
+                "example": {
+                  "gender_concept_ids": [8507],
+                  "race_concept_ids": [8516],
+                  "ethnicity_concept_id": [38003564]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/visit/detail": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllVisitDetail",
+        "summary": "Get all visitDetail",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/visit/detail/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchVisitDetail",
+        "summary": "Search omopVisitDetail",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/visit/occurrence": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllVisitOccurrence",
+        "summary": "Get all visitOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/visit/occurrence/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchVisitOccurrence",
+        "summary": "Search omopVisitOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/occurrence/condition": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllconditionOccurrence",
+        "summary": "Get all omopConditionOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/occurrence/condition/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchConditionOccurrence",
+        "summary": "Search omopConditionOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/occurrence/procedure": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllProcedureOccurrence",
+        "summary": "Get all omopProcedureOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/occurrence/procedure/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchProcedureOccurrence",
+        "summary": "Search omopProcedureOccurrence",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/exposure/drug": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAlldrugExposure",
+        "summary": "Get all omopDrugExposure",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/exposure/drug/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchDrugExposure",
+        "summary": "Search omopDrugExposure",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/exposure/device": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllDeviceExposure",
+        "summary": "Get all omopDeviceExposure",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/exposure/device/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchDeviceExposure",
+        "summary": "Search omopDeviceExposure",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/measurement": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllmeasurement",
+        "summary": "Get all omopMeasurement",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/measurement/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchMeasurement",
+        "summary": "Search omopMeasurement",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/observation": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllobservations",
+        "summary": "Get all omopObservations",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/observation/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchObservation",
+        "summary": "Search omopObservation",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/observation/period": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllobservationPeriods",
+        "summary": "Get all omopObservationPeriods",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/observation/period/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllomopObservationPeriod",
+        "summary": "Get all omopObservationPeriod",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "person_ids",
+            "description": "persion ids",
+            "required": false,
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start_date",
+            "description": "start date",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end_date",
+            "description": "end date",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "concept_ids",
+            "description": "concept ids",
+            "required": false,
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/death": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "getAllDeaths",
+        "summary": "Get all omopDeath",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/omop/death/search": {
+      "get": {
+        "tags": [
+          "OMOP"
+        ],
+        "operationId": "searchDeath",
+        "summary": "Search omopDeath",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "search string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "current page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "page size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "description": "sorting order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "exactMatch",
+            "description": "exact match",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "UserArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string",
+                    "default": "Tom Jerry"
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": "test@gmail.com"
+                  },
+                  "loginType": {
+                    "type": "string",
+                    "description": "Login type",
+                    "enum": [
+                      "local",
+                      "github",
+                      "google"
+                    ]
+                  },
+                  "Token": {
+                    "type": "string",
+                    "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                  },
+                  "WantsEmail": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "IsBot": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "cadaProjectUser": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/cadaProjectUser"
+                    }
+                  },
+                  "FeatureUser": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/featureUser"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "List of user object"
+      },
+      "ProjectArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/cadaProject"
+              }
+            }
+          }
+        },
+        "description": "List of project object"
+      },
+      "ProjectUserArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/cadaProjectUser"
+              }
+            }
+          }
+        },
+        "description": "List of project user object"
+      },
+      "FeatureArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/feature"
+              }
+            }
+          }
+        },
+        "description": "List of feature object"
+      },
+      "FeatureUserArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/featureUser"
+              }
+            }
+          }
+        },
+        "description": "List of feature user object"
+      }
+    },
+    "parameters": {},
+    "examples": {},
+    "requestBodies": {
+      "User": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "example": {
+                "name": "Del Bold",
+                "email": "test@gmail.com",
+                "loginType": "saml",
+                "isBot": false,
+                "role": "user"
+              }
+            }
+          }
+        }
+      },
+      "Feature": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "default": "App name"
+                },
+                "description": {
+                  "type": "string",
+                  "default": "App description"
+                }
+              }
+            }
+          }
+        }
+      },
+      "cadaProjectUser": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "default": "user"
+                },
+                "userId": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "cadaProjectId": {
+                  "type": "integer",
+                  "default": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "cadaProject": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "default": "Afib"
+                },
+                "title": {
+                  "type": "string",
+                  "default": "Adult Atrial Fibrillation events"
+                },
+                "description": {
+                  "type": "string",
+                  "default": "The Afib project gathers expert reviews of records of physiological signals to determine whether Atrial Fibrillation (AFib) or Atrial Flutter (AFlutter) arrhythmia are present. The annotated records will be useful in learning arrhythmia waveform features and build AFib detection methods."
+                },
+                "goal": {
+                  "type": "string",
+                  "default": null
+                },
+                "data": {
+                  "type": "string",
+                  "default": null
+                },
+                "attributes": {
+                  "type": "string",
+                  "default": null
+                },
+                "projectType": {
+                  "type": "string",
+                  "description": "Project type type",
+                  "enum": [
+                    "afib",
+                    "sqi",
+                    "txt",
+                    "nlp"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "iveComponent": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "default": "MyAlarm"
+                },
+                "title": {
+                  "type": "string",
+                  "default": "Neuro Alarm"
+                },
+                "description": {
+                  "type": "string",
+                  "default": "The alarm component"
+                },
+                "attributes": {
+                  "type": "string",
+                  "default": null
+                },
+                "componentType": {
+                  "type": "string",
+                  "description": "Component type",
+                  "enum": [
+                    "alarm",
+                    "waveform",
+                    "vitals",
+                    "demographic"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "cadaAnnotationValue": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "default": "Afib"
+                },
+                "value": {
+                  "type": "string",
+                  "default": "not sure"
+                },
+                "cadaAnnotationId": {
+                  "type": "integer",
+                  "default": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "cadaAdjudicationValue": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "default": "Afib"
+                },
+                "value": {
+                  "type": "string",
+                  "default": "not sure"
+                },
+                "userId": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "cadaEventId": {
+                  "type": "integer",
+                  "default": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "id",
+          "username"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string",
+            "default": "test@gmail.com"
+          },
+          "email": {
+            "type": "string",
+            "default": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "default": "HulabApss123456"
+          },
+          "loginType": {
+            "type": "string",
+            "description": "Login type",
+            "enum": [
+              "local",
+              "github",
+              "google"
+            ]
+          },
+          "firstName": {
+            "type": "string",
+            "default": "Tom"
+          },
+          "lastName": {
+            "type": "string",
+            "default": "Tom"
+          },
+          "avatar": {
+            "type": "string",
+            "default": ""
+          },
+          "token": {
+            "type": "string",
+            "default": ""
+          },
+          "IsBot": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "feature": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "default": "App name"
+          },
+          "description": {
+            "type": "string",
+            "default": "App description"
+          }
+        }
+      },
+      "featureUser": {
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "userId",
+          "featureId"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "role": {
+            "type": "string",
+            "description": "role type",
+            "enum": [
+              "user",
+              "admin"
+            ]
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "featureId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "default": "Active"
+          }
+        }
+      },
+      "cadaProject": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "title",
+          "projectType"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "default": "Afib"
+          },
+          "title": {
+            "type": "string",
+            "default": "Adult Atrial Fibrillation events"
+          },
+          "description": {
+            "type": "string",
+            "default": "The Afib project gathers expert reviews of records of physiological signals to determine whether Atrial Fibrillation (AFib) or Atrial Flutter (AFlutter) arrhythmia are present. The annotated records will be useful in learning arrhythmia waveform features and build AFib detection methods."
+          },
+          "goal": {
+            "type": "string",
+            "default": null
+          },
+          "data": {
+            "type": "string",
+            "default": null
+          },
+          "extrainfo": {
+            "type": "string",
+            "default": null
+          },
+          "attributes": {
+            "type": "string",
+            "default": null
+          },
+          "projectType": {
+            "type": "string",
+            "description": "Project type type",
+            "enum": [
+              "afib",
+              "sqi",
+              "txt",
+              "nlp"
+            ]
+          }
+        }
+      },
+      "cadaProjectUser": {
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "userId",
+          "cadaProjectId"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "role": {
+            "type": "string",
+            "description": "role type",
+            "enum": [
+              "annotator",
+              "adjudicator"
+            ]
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "cadaProjectId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaEvent": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "info": {
+            "type": "integer"
+          },
+          "cadaFileId": {
+            "type": "integer"
+          },
+          "cadaProjectId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaFile": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "path": {
+            "type": "integer"
+          },
+          "info": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaBot": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "path": {
+            "type": "integer"
+          },
+          "info": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaAnnotation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "cadaEventId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaAnnotationValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "cadaAnnotationId": {
+            "type": "integer"
+          }
+        }
+      },
+      "cadaAdjudicationValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "annotators": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "cadaEventId": {
+            "type": "integer"
+          }
+        }
+      },
+      "omopPerson": {
+        "type": "object",
+        "properties": {
+          "person_id": {
+            "type": "integer"
+          },
+          "gender_concept_id": {
+            "type": "integer"
+          },
+          "year_of_birth": {
+            "type": "integer"
+          },
+          "month_of_birth": {
+            "type": "integer",
+            "nullable": true
+          },
+          "day_of_birth": {
+            "type": "integer",
+            "nullable": true
+          },
+          "birth_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "race_concept_id": {
+            "type": "integer"
+          },
+          "ethnicity_concept_id": {
+            "type": "integer"
+          },
+          "location_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "care_site_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "person_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "gender_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "gender_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "race_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "race_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "ethnicity_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "ethnicity_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "person_id",
+          "gender_concept_id",
+          "year_of_birth",
+          "race_concept_id",
+          "ethnicity_concept_id"
+        ]
+      },
+      "omopObservationPeriod": {
+        "type": "object",
+        "properties": {
+          "observation_period_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "observation_period_start_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "observation_period_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "period_type_concept_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "observation_period_id",
+          "person_id",
+          "observation_period_start_date",
+          "observation_period_end_date",
+          "period_type_concept_id"
+        ]
+      },
+      "omopVisitDetail": {
+        "type": "object",
+        "properties": {
+          "visit_detail_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "visit_detail_concept_id": {
+            "type": "integer"
+          },
+          "visit_detail_start_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "visit_detail_start_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "visit_detail_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "visit_detail_end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "visit_detail_type_concept_id": {
+            "type": "integer"
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "care_site_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "visit_detail_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "admitted_from_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "admitted_from_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "discharged_to_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "discharged_to_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "preceding_visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "parent_visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "visit_detail_id",
+          "person_id",
+          "visit_detail_concept_id",
+          "visit_detail_start_date",
+          "visit_detail_end_date",
+          "visit_detail_type_concept_id",
+          "visit_occurrence_id"
+        ]
+      },
+      "omopVisitOccurrence": {
+        "type": "object",
+        "properties": {
+          "visit_occurrence_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "visit_concept_id": {
+            "type": "integer"
+          },
+          "visit_start_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "visit_start_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "visit_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "visit_end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "visit_type_concept_id": {
+            "type": "integer"
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "care_site_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "visit_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "admitted_from_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "admitted_from_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "discharged_to_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "discharged_to_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "preceding_visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "visit_occurrence_id",
+          "person_id",
+          "visit_concept_id",
+          "visit_start_date",
+          "visit_end_date",
+          "visit_type_concept_id"
+        ]
+      },
+      "omopConditionOccurrence": {
+        "type": "object",
+        "properties": {
+          "condition_occurrence_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "condition_concept_id": {
+            "type": "integer"
+          },
+          "condition_start_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "condition_start_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "condition_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "condition_end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "condition_type_concept_id": {
+            "type": "integer"
+          },
+          "condition_status_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "stop_reason": {
+            "type": "string",
+            "maxLength": 20,
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "condition_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "condition_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "condition_status_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          }
+        },
+        "required": [
+          "condition_occurrence_id",
+          "person_id",
+          "condition_concept_id",
+          "condition_start_date",
+          "condition_type_concept_id"
+        ]
+      },
+      "omopDrugExposure": {
+        "type": "object",
+        "properties": {
+          "drug_exposure_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "drug_concept_id": {
+            "type": "integer"
+          },
+          "drug_exposure_start_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "drug_exposure_start_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "drug_exposure_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "drug_exposure_end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "verbatim_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "drug_type_concept_id": {
+            "type": "integer"
+          },
+          "stop_reason": {
+            "type": "string",
+            "maxLength": 20,
+            "nullable": true
+          },
+          "refills": {
+            "type": "integer",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "number",
+            "nullable": true
+          },
+          "days_supply": {
+            "type": "integer",
+            "nullable": true
+          },
+          "sig": {
+            "type": "string",
+            "nullable": true
+          },
+          "route_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "lot_number": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "drug_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "drug_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "route_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "dose_unit_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          }
+        },
+        "required": [
+          "drug_exposure_id",
+          "person_id",
+          "drug_concept_id",
+          "drug_exposure_start_date",
+          "drug_exposure_end_date",
+          "drug_type_concept_id"
+        ]
+      },
+      "omopProcedureOccurrence": {
+        "type": "object",
+        "properties": {
+          "procedure_occurrence_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "procedure_concept_id": {
+            "type": "integer"
+          },
+          "procedure_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "procedure_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "procedure_end_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "procedure_end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "procedure_type_concept_id": {
+            "type": "integer"
+          },
+          "modifier_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "procedure_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "procedure_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "modifier_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          }
+        },
+        "required": [
+          "procedure_occurrence_id",
+          "person_id",
+          "procedure_concept_id",
+          "procedure_date",
+          "procedure_type_concept_id"
+        ]
+      },
+      "omopMeasurement": {
+        "type": "object",
+        "properties": {
+          "measurement_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "measurement_concept_id": {
+            "type": "integer"
+          },
+          "measurement_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "measurement_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "measurement_time": {
+            "type": "string",
+            "maxLength": 10,
+            "nullable": true
+          },
+          "measurement_type_concept_id": {
+            "type": "integer"
+          },
+          "operator_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "value_as_number": {
+            "type": "number",
+            "nullable": true
+          },
+          "value_as_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "unit_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "range_low": {
+            "type": "number",
+            "nullable": true
+          },
+          "range_high": {
+            "type": "number",
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "measurement_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "measurement_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "unit_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "value_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "measurement_event_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "meas_event_field_concept_id": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "measurement_id",
+          "person_id",
+          "measurement_concept_id",
+          "measurement_date",
+          "measurement_type_concept_id"
+        ]
+      },
+      "omopObservation": {
+        "type": "object",
+        "properties": {
+          "observation_id": {
+            "type": "integer"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "observation_concept_id": {
+            "type": "integer"
+          },
+          "observation_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "observation_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "observation_type_concept_id": {
+            "type": "integer"
+          },
+          "value_as_number": {
+            "type": "number",
+            "nullable": true
+          },
+          "value_as_string": {
+            "type": "string",
+            "maxLength": 60,
+            "nullable": true
+          },
+          "value_as_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "qualifier_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "unit_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "provider_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_occurrence_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "visit_detail_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "observation_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "observation_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "unit_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "qualifier_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "value_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "observation_event_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "obs_event_field_concept_id": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "observation_id",
+          "person_id",
+          "observation_concept_id",
+          "observation_date",
+          "observation_type_concept_id"
+        ]
+      },
+      "omopDeath": {
+        "type": "object",
+        "properties": {
+          "person_id": {
+            "type": "integer"
+          },
+          "death_date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "death_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "death_type_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "cause_concept_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "cause_source_value": {
+            "type": "string",
+            "maxLength": 50,
+            "nullable": true
+          },
+          "cause_source_concept_id": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "person_id",
+          "death_date"
+        ]
+      }
+    }
+  }
+}

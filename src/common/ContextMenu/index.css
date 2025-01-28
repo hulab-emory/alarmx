@@ -1,0 +1,39 @@
+.context-menu,
+.context-menu-hidden {
+  display: grid;
+  background-color: var(--white-transparent);
+  backdrop-filter: blur(5px);
+  color: var(--dark-grey);
+  border-radius: 8px;
+  width: fit-content;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 10;
+  transition: grid-template-rows 0.1s;
+}
+
+.context-menu {
+  grid-template-rows: 1fr;
+}
+
+.context-menu-hidden {
+  grid-template-rows: 0fr;
+  overflow: hidden;
+}
+
+.context-menu-content {
+  overflow: hidden;
+}
+
+.label {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  padding-inline: 30px;
+  user-select: none;
+  transition: 0.3s;
+}
+
+.label:hover {
+  background-color: var(--white-transparent-hover);
+}
