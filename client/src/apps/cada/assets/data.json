@@ -1,0 +1,129 @@
+[
+  {
+    "text": "70 yo F with a history of CAD, s/p remote CABG, 2 DES in place, AAA,\n   severe PVD, known systolic CHF who presents with chest pain, shortness\n   of breath, transferred from OSH with acute respiratory failure,\n   concerning for ischemic etiology.\n   Pt was admitted to OSH ICU on [**8-5**] from rehab complaining of shortness\n   of breath with substernal chest pain radiating to her back for 1 hour.\n   CP was [**7-7**], and resolved with SL nitro x3.  Her EKG at that time was\n   NSR and unchanged from her baseline.\n   Of note, patient has a history of MVA trauma in [**2160-6-28**], as a\n   result has multiple fractures and is trach-vent dependent.\n   Patient was admitted to OSH ICU. She was ruled out for MI with 3\n   negative cardiac enzymes. CXR showed bilateral pulmonary infilatrates.\n   They were concerned for recurrent aspiration vs. hospital acquired\n   pneumonia vs. pulm edema.\n   During hospitalization, the patient was briefly extubated, but\n   developed recurrent respiratory distress on [**2159-8-20**], and the ventilator\n   was resumed.  BNP 1800.  She was diuresed with good effect.  Echo\n   showed EF 35%, 2+ MR, 1+ TR.  Her plavix for some reason was stopped at\n   rehab. It was resumed at OSH on [**8-18**].\n   She was transfused 1u PRBCs on [**8-20**] for HCT of 26.\n   The patient was transferred to [**Hospital1 19**] for cardiac catheterization.  On\n   transfer vitals Tm 98, BPs 130-180/50-70, HR 70-80, 94% on 65% FiO2.\n   .\n   On arrival to the CCU, patient has some epigastric pain. She denies\n   chest pain or difficulty breathing. She nods her head yes to\n   having a headache. She is non verbal and nods/shakes her head yes/no.\n   Respiratory failure, acute (not ARDS/[**Doctor Last Name 11**])\n   Assessment:\n   Unable to wean patient off vent, bilat infiltrates, sputum cultures +\n   for MRSA @ OSH, low ef 20% with latest 35%\n   Action:\n   Vanco 1000mg IV and lasix 40mg IV  given @ 0800- Chest CT ordered-\n   pulmonary consulted- FIO2 decreased to 50%- echo done.\n   Response:\n   ABG on CPAP [**7-7**] 50% 7.47-48-78-36- O2 sats decreased to 94% from 97%,\n   diuresing well from lasix- (-) 1400cc since 12am- Chest CT ? infectious\n   process vs fluid overload-  additional dose of lasix 20mg IV given @\n   1700.\n   Plan:\n   Aggressive diuresis tonight- con\nt to monitor hemodynamics.\n",
+    "info": [
+      {
+        "num_sents": 2,
+        "start": 30,
+        "end": 33,
+        "concept": "Congestive heart failure",
+        "semtypes": ["dsyn"],
+        "cui": "C0018802",
+        "pos_info": "100/3",
+        "trigger_word": "CHF"
+      },
+      {
+        "num_sents": 2,
+        "start": 52,
+        "end": 62,
+        "concept": "Chest Pain",
+        "semtypes": ["sosy"],
+        "cui": "C0008031",
+        "pos_info": "1532/10;122/10",
+        "trigger_word": "chest pain"
+      },
+      {
+        "num_sents": 14,
+        "start": 3,
+        "end": 12,
+        "concept": "Pneumonia",
+        "trigger_word": "pneumonia"
+      },
+      {
+        "num_sents": 16,
+        "start": 23,
+        "end": 43,
+        "concept": "Respiratory distress",
+        "semtypes": ["sosy"],
+        "cui": "C0476273",
+        "pos_info": "1546/20;984/20",
+        "trigger_word": "respiratory distress"
+      },
+      {
+        "num_sents": 25,
+        "start": 3,
+        "end": 13,
+        "concept": "Chest Pain",
+        "semtypes": ["sosy"],
+        "cui": "C0008031",
+        "pos_info": "1532/10;122/10",
+        "trigger_word": "chest pain"
+      },
+      {
+        "num_sents": 25,
+        "start": 17,
+        "end": 37,
+        "concept": "Dyspnea",
+        "trigger_word": "difficulty breathing"
+      },
+      {
+        "num_sents": 25,
+        "start": 17,
+        "end": 37,
+        "concept": "Respiratory distress",
+        "trigger_word": "difficulty breathing"
+      },
+      {
+        "num_sents": 25,
+        "start": 43,
+        "end": 47,
+        "concept": "Dentatorubral-Pallidoluysian Atrophy",
+        "semtypes": ["dsyn"],
+        "cui": "C0751781",
+        "pos_info": "1637/4;1572/4",
+        "trigger_word": "nods"
+      },
+      {
+        "num_sents": 26,
+        "start": 12,
+        "end": 20,
+        "concept": "Headache",
+        "semtypes": ["sosy"],
+        "cui": "C0018681",
+        "pos_info": "1605/8",
+        "trigger_word": "headache"
+      },
+      {
+        "num_sents": 26,
+        "start": 44,
+        "end": 48,
+        "concept": "Dentatorubral-Pallidoluysian Atrophy",
+        "semtypes": ["dsyn"],
+        "cui": "C0751781",
+        "pos_info": "1637/4;1572/4",
+        "trigger_word": "nods"
+      },
+      {
+        "num_sents": 26,
+        "start": 49,
+        "end": 55,
+        "concept": "Tremor",
+        "semtypes": ["sosy"],
+        "cui": "C0040822",
+        "pos_info": "1642/6",
+        "trigger_word": "shakes"
+      },
+      {
+        "num_sents": 27,
+        "start": 3,
+        "end": 22,
+        "concept": "Respiratory Failure",
+        "semtypes": ["dsyn"],
+        "cui": "C1145670",
+        "pos_info": "1669/19",
+        "trigger_word": "Respiratory failure"
+      }
+    ],
+    "row_id": 486360,
+    "cg_id": 20818,
+    "caregiver": {
+      "label": "RN",
+      "description": "RN"
+    },
+    "category": "Physician",
+    "description": "Physician Resident Admission Note",
+    "index": 0,
+    "subject_id": 68135,
+    "hadm_id": 163192
+  }
+]
