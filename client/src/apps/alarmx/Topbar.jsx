@@ -122,7 +122,7 @@ export default function Topbar(props) {
               {user?.firstName + " " + user?.lastName}
             </Typography>
             <Typography sx={{ color: "text.secondary", fontSize: 14 }} noWrap>
-              {user?.featureUsers[4].role}
+              {user?.featureUsers[1].role}
             </Typography>
           </Box>
           <Divider sx={{ borderStyle: "dashed" }} />

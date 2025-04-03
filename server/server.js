@@ -28,7 +28,7 @@ Promise.all([
   console.log("Failed to sync db: " + err.message);
 });
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/api", routes);

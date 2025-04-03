@@ -68,5 +68,5 @@
     "react-scripts": "^5.0.1",
     "sequelize-cli": "^6.4.1"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://127.0.0.1:8080"
 }

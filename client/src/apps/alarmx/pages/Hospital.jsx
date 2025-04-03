@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Container,
   Typography,
-  Grid,
   AppBar,
   ToggleButton,
   ToggleButtonGroup,
@@ -19,10 +18,8 @@ import {
 } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import { useNavigate } from "react-router-dom";
 import { AiFillAlert } from "react-icons/ai";
 import UnitsBreakdown from "../sections/UnitsBreakdown";
-import { set } from "lodash";
 
 echarts.use([
   TooltipComponent,
@@ -60,7 +57,6 @@ export default function Dashboard() {
   const user = useSelector((state) => state.main.user);
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-  const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState("month");
   const [chartPayload, setChartPayload] = useState({ labels: [], data: [], dateMap: {} });
 
@@ -160,11 +156,6 @@ export default function Dashboard() {
   const handleRangeChange = (_, newRange) => {
     if (newRange !== null) setTimeRange(newRange);
   };
-
-  useEffect(() => {
-    console.log("selectedUnit", selectedUnit);
-  }
-  , [selectedUnit]);
 
   if (!user) {
     return (

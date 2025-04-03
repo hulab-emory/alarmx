@@ -29,7 +29,6 @@ echarts.use([
 ]);
 
 export default function UnitsPage({selectedUnit}) {
-  console.log('SelectedUnit: ',selectedUnit);
 
   const navigate = useNavigate();
   const chartRef = useRef(null);
